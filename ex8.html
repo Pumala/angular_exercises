@@ -1,0 +1,110 @@
+<!--
+Instructor Toby used to work at a super market as a cashier. His work experience there has made him an expert in making change.
+
+Write an app to make the change needed - in quarters, dimes, nickels, and pennies - given the bill amount, and the given amount.
+
+The app should have
+
+1. A number input to enter the bill amount.
+2. A number input to enter the given amount.
+3. A "Make change!" button
+4. When the "Make change!" button is clicked, it should display the number of coins for each coin type that are needed. For example:
+
+  * 4 quarters
+  * 3 dimes
+  * 0 nickels
+  * 2 pennies
+
+5. Bonus, display the coin image next to the number
+5. Extra super bonus: write this same app using jQuery or nothing but the DOM native API. Compare and contrast.
+
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Making Change</title>
+    <style media="screen">
+      ul {
+        list-style: none;
+      }
+      .coinCount {
+        margin-top: 30px;
+        float: left;
+        font-size: 2em;
+        margin-right: 1em;
+      }
+      li {
+        display: inline-block;
+        width: 100%;
+      }
+    </style>
+    <script src="angular.js"></script>
+    <script>
+      var app = angular.module('my-app', []);
+
+      app.controller('MainController', function($scope) {
+        $scope.quarter = 0;
+        $scope.dime = 0;
+        $scope.nickel = 0;
+        $scope.penny = 0;
+
+        $scope.makeChange = function(bill, given) {
+          var change = given - bill;
+          console.log(change);
+          $scope.quarter = Math.floor(change / .25);
+          change = Number(((change - ($scope.quarter * .25)) * 1).toFixed(2));
+          $scope.dime = Math.floor(change / .10);
+          change = Number(((change - ($scope.dime * .10)) * 1).toFixed(2));
+          $scope.nickel = Math.floor(change / .05);
+          change = Number(((change - ($scope.nickel * .05)) * 1).toFixed(2));
+          $scope.penny = Math.floor(change / .01);
+        }
+
+      });
+    </script>
+  </head>
+  <body>
+    <!-- write template code in here -->
+    <div ng-app="my-app" ng-controller="MainController">
+      Enter bill amount:
+      <input type="number" ng-model="bill" name="billAmount"><br>
+      Enter given amount:
+      <input type="number" ng-model="given" name="billAmount"><br>
+      <button ng-click="makeChange(bill, given)" type="button" name="makeChange">Make Change!</button>
+      <!-- <ul>
+        <li>{{quarter}} quarters</li>
+        <li>{{dime}} dimes</li>
+        <li>{{nickel}} nickels</li>
+        <li>{{penny}} pennies</li>
+      </ul> -->
+
+      <ul>
+        <li>
+          <span class="coinCount">
+            {{quarter}}
+          </span class="coinCount">
+          <img src="quarter-front.png" alt="" />
+        </li>
+        <li>
+          <span class="coinCount">
+            {{dime}}
+          </span class="coinCount">
+          <img src="dime-front.png" alt="" />
+        </li>
+        <li>
+          <span class="coinCount">
+            {{nickel}}
+          </span class="coinCount">
+          <img src="nickle-front.png" alt="" />
+        </li>
+        <li>
+          <span class="coinCount">
+            {{penny}}
+          </span class="coinCount">
+          <img src="penny-front.png" alt="" />
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<!--
+Write an app that asks the user to input his age in a number input given the form.
+Then when he clicks a "Submit" button, it displays the year they were born. Hints at the bottom of this file.
+
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>What Year Were You Born?</title>
+    <script src="angular.js"></script>
+    <script>
+    // Write JS code here
+    window.addEventListener('load', function() {
+      var submitBtn = document.querySelector('#submitBtn');
+      var age = document.querySelector('#age');
+      var content = document.querySelector('#content');
+
+      submitBtn.addEventListener('click', function(event) {
+        event.preventDefault();
+        var birthyear = 2016 - age.value;
+        content.textContent = "You were born in " + birthyear + ".";
+      });
+    });
+
+    </script>
+  </head>
+  <body>
+
+  <form>
+    What's your age? (Number)
+    <input id="age" type="number" name="name">
+    <button id="submitBtn" type="submit" name="submit">Submit</button>
+  </form>
+
+  <div>
+    <p id="content"></p>
+  </div>
+
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+## Hint
+
+Look at angular-examples/3-hello-world-2.html for an example of how to do form submissions.
+
+You get get the date via: `new Date()` - it will return a Date object. Once you have the date object, you get use its `getFullYear()` method to get the current year.
